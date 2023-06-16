@@ -1,9 +1,6 @@
 package com.capstone.recipefinder.data.remote
 
-import com.capstone.recipefinder.data.model.ResponseFoodItem
-import com.capstone.recipefinder.data.model.ResponseLogin
-import com.capstone.recipefinder.data.model.ResponseRegister
-import com.capstone.recipefinder.data.model.ResponseScanFood
+import com.capstone.recipefinder.data.model.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -35,6 +32,6 @@ interface ApiService {
     @POST("predict")
     fun uploadImage(
         @Part file: MultipartBody.Part,
-        @Part("description") description: RequestBody
-    ): Call<ResponseScanFood>
+//        @Part("description") description: RequestBody
+    ): Call<ResponsePredictItem>
 }

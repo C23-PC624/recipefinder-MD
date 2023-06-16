@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.ActivityOptionsCompat
-import com.capstone.recipefinder.R
 import com.capstone.recipefinder.data.preference.LoginPreference
 import com.capstone.recipefinder.databinding.ActivityProfileBinding
 
@@ -15,10 +14,12 @@ class ProfileActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        binding = ActivityProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar?.hide()
 
         PreferenceLogin = LoginPreference(this)
+
         binding.ivBack.setOnClickListener{ finish()}
 
         action()

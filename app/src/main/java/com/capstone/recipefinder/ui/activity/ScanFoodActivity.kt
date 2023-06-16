@@ -12,13 +12,11 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import com.capstone.recipefinder.data.model.ResponseScanFood
+import com.capstone.recipefinder.data.model.ResponsePredictItem
 import com.capstone.recipefinder.data.preference.LoginPreference
 import com.capstone.recipefinder.data.remote.ApiConfig
 import com.capstone.recipefinder.databinding.ActivityScanFoodBinding
-import com.capstone.recipefinder.utils.createFileTemp
-import com.capstone.recipefinder.utils.getreduceFileImage
-import com.capstone.recipefinder.utils.uriToFile
+import com.capstone.recipefinder.utils.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -30,6 +28,18 @@ import retrofit2.Response
 import java.io.File
 
 class ScanFoodActivity : AppCompatActivity() {
+
+    private var image: String? = null
+    private var name: String? = null
+    private var kategori: String? = null
+    private var kkal: String? = null
+    private var karbohidrat: String? = null
+    private var protein: String? = null
+    private var lemak: String? = null
+    private var desc: String? = null
+    private var ingredients: String? = null
+
+
     private lateinit var binding: ActivityScanFoodBinding
     private lateinit var currentPhotoPath: String
     private lateinit var PreferenceLogin: LoginPreference
@@ -67,17 +77,12 @@ class ScanFoodActivity : AppCompatActivity() {
         binding = ActivityScanFoodBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar?.title = "Story"
+        supportActionBar?.title = "Get Food"
         PreferenceLogin = LoginPreference(this)
 
         binding.btnAddCamera.setOnClickListener { startTakePhoto() }
         binding.btnAddGallery.setOnClickListener { startGallery() }
-        binding.btnUpload.setOnClickListener {
-            addFood()
-            startActivity(Intent(this, MainActivity::class.java))
-
-            finish()
-        }
+        binding.btnUpload.setOnClickListener { addFood() }
 
     }
     private fun startTakePhoto() {
@@ -134,28 +139,40 @@ class ScanFoodActivity : AppCompatActivity() {
 
         if (getFile != null) {
             val file = getreduceFileImage(getFile as File)
-            val descriptionText = binding.etAdd.text.toString()
-            val description = descriptionText.toRequestBody("text/plain".toMediaType())
+//            val descriptionText = binding.etAdd.text.toString()
+//            val description = descriptionText.toRequestBody("text/plain".toMediaType())
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
-                "photo",
+                "image",
                 file.name,
                 requestImageFile
             )
 
-//            val token = "Bearer ${PreferenceLogin.getUser().token}"
-            val service = ApiConfig().GetApiService().uploadImage(imageMultipart, description)
-            service.enqueue(object : Callback<ResponseScanFood> {
-                override fun onResponse(call: Call<ResponseScanFood>, response: Response<ResponseScanFood>) {
+            val service = ApiConfig().GetApiService().uploadImage(imageMultipart)
+            service.enqueue(object : Callback<ResponsePredictItem> {
+                override fun onResponse(call: Call<ResponsePredictItem>, response: Response<ResponsePredictItem>) {
                     if (response.isSuccessful) {
                         val responseBody =response.body()
-                        if (responseBody != null && !responseBody.predictedClass.toBoolean()) {
-                            Toast.makeText(this@ScanFoodActivity, "Gambar Berhasil di Upload",Toast.LENGTH_SHORT).show()
+                        if (responseBody != null ) {
+                            this@ScanFoodActivity.let {
+                                image = responseBody.img
+                                name = responseBody.name
+                                kategori = responseBody.kategori
+                                kkal = responseBody.kkal
+                                karbohidrat = responseBody.karbohidrat
+                                protein = responseBody.protein
+                                lemak = responseBody.lemak
+                                desc = responseBody.description
+                                ingredients = responseBody.ingredients
+                                DetailPredictActivity()
+                            }
                         }
+                    }else{
+                        Toast.makeText(this@ScanFoodActivity, "Gambar Berhasil di Upload",Toast.LENGTH_SHORT).show()
                     }
                 }
 
-                override fun onFailure(call: Call<ResponseScanFood>, t: Throwable) {
+                override fun onFailure(call: Call<ResponsePredictItem>, t: Throwable) {
                     Toast.makeText(this@ScanFoodActivity, "Gagal instance retrofit",Toast.LENGTH_SHORT).show()
                 }
 
@@ -164,5 +181,19 @@ class ScanFoodActivity : AppCompatActivity() {
             Toast.makeText(this@ScanFoodActivity, "Silahkan masukkan gambar terlebih dahulu.",Toast.LENGTH_SHORT).show()
         }
     }
+    private fun DetailPredictActivity() {
+        val intent = Intent(this@ScanFoodActivity, DetailPredictActivity::class.java)
+        intent.putExtra("img", image)
+        intent.putExtra("name", name)
+        intent.putExtra("kategori", kategori)
+        intent.putExtra("kkal", kkal)
+        intent.putExtra("karbohidrat", karbohidrat)
+        intent.putExtra("protein", protein)
+        intent.putExtra("lemak", lemak)
+        intent.putExtra("description", desc)
+        intent.putExtra("ingredients", ingredients)
+        startActivity(intent)
+    }
+
 }
 
