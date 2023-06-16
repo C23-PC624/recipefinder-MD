@@ -29,15 +29,15 @@ import java.io.File
 
 class ScanFoodActivity : AppCompatActivity() {
 
-    private var image: String? = null
-    private var name: String? = null
-    private var kategori: String? = null
-    private var kkal: String? = null
-    private var karbohidrat: String? = null
-    private var protein: String? = null
-    private var lemak: String? = null
-    private var desc: String? = null
-    private var ingredients: String? = null
+    private var image1: String? = null
+    private var name1: String? = null
+    private var kategori1: String? = null
+    private var kkal1: String? = null
+    private var karbohidrat1: String? = null
+    private var protein1: String? = null
+    private var lemak1: String? = null
+    private var desc1: String? = null
+    private var ingredients1: String? = null
 
 
     private lateinit var binding: ActivityScanFoodBinding
@@ -155,15 +155,15 @@ class ScanFoodActivity : AppCompatActivity() {
                         val responseBody =response.body()
                         if (responseBody != null ) {
                             this@ScanFoodActivity.let {
-                                image = responseBody.img
-                                name = responseBody.name
-                                kategori = responseBody.kategori
-                                kkal = responseBody.kkal
-                                karbohidrat = responseBody.karbohidrat
-                                protein = responseBody.protein
-                                lemak = responseBody.lemak
-                                desc = responseBody.description
-                                ingredients = responseBody.ingredients
+                                image1 = responseBody.img
+                                name1 = responseBody.name
+                                kategori1 = responseBody.kategori
+                                kkal1 = responseBody.kkal
+                                karbohidrat1 = responseBody.karbohidrat
+                                protein1 = responseBody.protein
+                                lemak1 = responseBody.lemak
+                                desc1 = responseBody.description
+                                ingredients1 = responseBody.ingredients
                                 DetailPredictActivity()
                             }
                         }
@@ -183,15 +183,15 @@ class ScanFoodActivity : AppCompatActivity() {
     }
     private fun DetailPredictActivity() {
         val intent = Intent(this@ScanFoodActivity, DetailPredictActivity::class.java)
-        intent.putExtra("img", image)
-        intent.putExtra("name", name)
-        intent.putExtra("kategori", kategori)
-        intent.putExtra("kkal", kkal)
-        intent.putExtra("karbohidrat", karbohidrat)
-        intent.putExtra("protein", protein)
-        intent.putExtra("lemak", lemak)
-        intent.putExtra("description", desc)
-        intent.putExtra("ingredients", ingredients)
+        intent.putExtra("imgage1", image1)
+        intent.putExtra("name1", name1)
+        intent.putExtra("kategori1", kategori1)
+        intent.putExtra("kkal1", kkal1)
+        intent.putExtra("karbohidrat1", karbohidrat1)
+        intent.putExtra("protein1", protein1)
+        intent.putExtra("lemak1", lemak1)
+        intent.putExtra("description1", desc1)
+        intent.putExtra("ingredients1", ingredients1)
         startActivity(intent)
     }
 

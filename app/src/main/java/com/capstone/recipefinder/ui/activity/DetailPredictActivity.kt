@@ -23,15 +23,16 @@ class DetailPredictActivity : AppCompatActivity() {
     }
 
     private fun setDetail() {
-        val name = intent.getStringExtra(FOOD_NAME)
-        val category = intent.getStringExtra(ID_CATEGORY)
-        val kkal = intent.getStringExtra(KALORI)
-        val lemak = intent.getStringExtra(LEMAK)
-        val protein = intent.getStringExtra(PROTEIN)
-        val karbo = intent.getStringExtra(KARBOHIDRAT)
-        val description = intent.getStringExtra(EXTRA_DESCRIPTION)
-        val ingredient = intent.getStringExtra(EXTRA_INGREDIENT)
-        val image = intent.getStringExtra(EXTRA_IMAGE)
+        val name = intent.getStringExtra("name1")
+        val category = intent.getStringExtra("kategori1")
+        val kkal = intent.getStringExtra("kkal1")
+        val lemak = intent.getStringExtra("lemak1")
+        val protein = intent.getStringExtra("protein1")
+        val karbo = intent.getStringExtra("karbohidrat1")
+        val description = intent.getStringExtra("description1")
+        val ingredient = intent.getStringExtra("ingredients1")
+        val image = intent.getStringExtra("imgage1")
+
 
         binding.apply {
             tvDetailFullname.text = name
