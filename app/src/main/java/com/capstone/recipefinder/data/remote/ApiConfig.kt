@@ -22,4 +22,19 @@ class ApiConfig {
         return retrofit.create(ApiService::class.java)
 
     }
+
+    fun GetApiService(): ApiService {
+        val loggingInterceptor =
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://predicted-dot-recipe-finder-388213.as.r.appspot.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        return retrofit.create(ApiService::class.java)
+
+    }
 }

@@ -1,12 +1,18 @@
 package com.capstone.recipefinder.data.preference
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.asLiveData
 import com.capstone.recipefinder.data.user.UserSessions
 import com.capstone.recipefinder.utils.*
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+
 
 
 class LoginPreference constructor(context: Context) {
@@ -21,7 +27,7 @@ class LoginPreference constructor(context: Context) {
         editor.apply()
     }
 
-    fun logout() {
+       fun logout() {
         val editor = preferences.edit()
         editor.remove(NAME)
         editor.remove(TOKEN)

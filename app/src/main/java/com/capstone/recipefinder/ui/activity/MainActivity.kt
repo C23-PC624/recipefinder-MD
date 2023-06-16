@@ -35,6 +35,10 @@ class MainActivity : AppCompatActivity() {
         setupViewModel()
         setRecyclerView()
         intent()
+        binding.ivProfile.setOnClickListener {
+            val intent = Intent(this,ProfileActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }

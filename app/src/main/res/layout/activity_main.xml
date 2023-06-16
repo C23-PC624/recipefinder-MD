@@ -16,7 +16,7 @@
         android:layout_marginTop="38dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_baseline_person_24" />
+        android:src="@drawable/profile" />
 
         <TextView
             android:id="@+id/textView2"
@@ -56,8 +56,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="49dp"
             android:inputType="text"
+            android:ems="10"
             android:maxLines="1"
             android:background="@color/column_white" />
 

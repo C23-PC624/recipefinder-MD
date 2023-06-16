@@ -61,15 +61,15 @@
 
             <ImageView
                 android:id="@+id/iv_detail"
-                android:layout_width="128dp"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_height="170dp"
                 android:layout_marginStart="95dp"
                 android:layout_marginTop="7dp"
                 android:layout_marginEnd="95dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:src="@drawable/profile" />
 
 
             <TextView
@@ -77,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
-                android:text="Full Name"
+                android:text="Nagita Slavina"
                 android:textColor="@color/black"
                 android:fontFamily="@font/open_sans"
                 android:textSize="16dp"
